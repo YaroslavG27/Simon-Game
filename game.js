@@ -2,7 +2,16 @@ let userClickedPattern = []
 let gamePattern = []
 let buttonColours = ["red", "blue", "green", "yellow"]
 
+$(document).keydown(function(){
+    nextSequence()
+})
+
+let level = 0
+
 function nextSequence(){
+
+    level++
+
     let randomNumber = Math.floor(Math.random() * 4)
 
     let randomChosenColour = buttonColours[randomNumber]
@@ -12,6 +21,7 @@ function nextSequence(){
     $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100)
     
     playSound(randomChosenColour)
+    console.log(level)
 }
 
 $(".btn").click(handler())
