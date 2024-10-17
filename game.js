@@ -9,15 +9,16 @@ $(document).keydown(function(){
 let level = 0
 
 function nextSequence(){
-
     level++
 
+    $("h1").text("Level " + level)
+    
     let randomNumber = Math.floor(Math.random() * 4)
-
+    
     let randomChosenColour = buttonColours[randomNumber]
-
+    
     gamePattern.push(randomChosenColour)
-
+    
     $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100)
     
     playSound(randomChosenColour)
