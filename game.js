@@ -2,9 +2,10 @@ let userClickedPattern = []
 let gamePattern = []
 let buttonColours = ["red", "blue", "green", "yellow"]
 
-$(document).keydown(function(){
+$("body").keydown(function(){
     nextSequence()
 })
+
 
 let level = 0
 
@@ -22,7 +23,7 @@ function nextSequence(){
     $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100)
     
     playSound(randomChosenColour)
-    console.log(level)
+
 }
 
 $(".btn").click(handler())
@@ -33,8 +34,34 @@ function handler(event){
         userClickedPattern.push(userChosenColour)
         animatePress(userChosenColour)
         playSound(userChosenColour)
+        checkAnswer()
     })
 }
+
+function checkAnswer(){
+    if(userClickedPattern[userClickedPattern.length - 1] === gamePattern[userClickedPattern.length - 1]){
+        if(userClickedPattern.length === gamePattern.length){
+        setTimeout(() => {
+            nextSequence()
+            userClickedPattern = []
+        }, 1000)}
+    } else {
+        $("h1").text("Game Over, Press any key to restart")
+        $("body").addClass("game-over")
+        setTimeout(() => {
+            $("body").removeClass("game-over"), 200
+        })
+        new Audio("sounds/wrong.mp3").play()
+        startOver()
+    }
+}
+
+function startOver(){
+    level = 0
+    gamePattern = []
+    userClickedPattern = []
+}
+
 
 function animatePress(currentColour){
     let animatedPress = $(`#${currentColour}`).addClass("pressed")
